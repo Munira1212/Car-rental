@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,7 +5,9 @@ public class Menu {
     private String menuHeader;
     private String leadText;
     private String menuItems;
-    private int input;
+    private int userInput;
+
+    //Scanner
     Scanner sc = new Scanner(System.in);
     public Menu(String menuHeader, String leadText, String menuItems){
         this.menuHeader = menuHeader;
@@ -24,17 +25,18 @@ public class Menu {
         try{
             do  {
                 printMenu();
-                input = sc.nextInt();
-                switch (input) {
+                userInput = sc.nextInt();
+                switch (userInput) {
                     case 1 -> carRental.luxuryCar();
                     case 2-> carRental.familyCar();
                     case 3-> carRental.sportsCar();
-                    case 9 -> input=0;
+                    case 4-> costumersReg.createRenter();
+                    case 9 -> userInput =0;
                     default -> System.out.println("You typed something the system could not understand!");
                 }
-                //Register costumer her....
+                costumersReg.carRenter();
             }
-            while (input!=0);
+            while (userInput !=0);
         } catch (InputMismatchException e) {
             System.out.println("ERROR 404");
         }
