@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseConnection {
-
     public static final String database_url ="jdbc:mysql://localhost:3306/Kailua_rental";
     public static java.sql.Connection con; //erklærer vores connection her
 
@@ -15,7 +14,6 @@ public class DatabaseConnection {
             String sql = statement;
 
             ResultSet rs = s.executeQuery(sql); //connecting object
-
             if (rs != null){
                 while (rs.next()) { //Skiller resultatset ad i dataen
                     for (int i = 0; i <column.length ; i++) {
@@ -47,8 +45,4 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
     }
-
-
-
-
 }

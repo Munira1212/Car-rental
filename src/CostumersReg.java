@@ -5,10 +5,6 @@ public class CostumersReg extends DatabaseConnection {
     Scanner sc = new Scanner(System.in);
     Scanner in = new Scanner(System.in);
 
-    public void differentsID(int renter_id, int car_id, int  contract_id ) {
-
-    }
-
     public void createRenter() throws SQLException {
         System.out.println("What is your renter id?");
         int renters_id = sc.nextInt();
@@ -32,6 +28,9 @@ public class CostumersReg extends DatabaseConnection {
 
         con.close();
     }
+
+
+
        public void rentalContract() throws SQLException {
          System.out.println("What's the ID of the car you wish to rent?");
          int car_id = sc.nextInt();
@@ -48,7 +47,7 @@ public class CostumersReg extends DatabaseConnection {
                    car_id + ", '" + rental_start_date + "', '" + rental_end_date + "', " + rental_maximum_km + ", " + rental_start_km + ")";
 
            executeDML(query, "Rental contract created with contract ID: ");
- con.close();
+            con.close();
     }
 
 

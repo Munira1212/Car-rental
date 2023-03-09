@@ -69,6 +69,13 @@ public class Cars extends DatabaseConnection {
 
         System.out.println(query);
     }
+
+
+
+
+
+
+
     public void costumersPick() throws SQLException {
         System.out.println("Write the ID of the car you wish to rent?");
         int car_id = sc.nextInt();
