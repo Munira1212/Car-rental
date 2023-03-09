@@ -32,13 +32,16 @@ public class DatabaseConnection {
         }
     }
 
-    public void executeDML(String statement,  String msg){
+    public ResultSet executeDML(String statement, String msg){
         String query = statement;
         try  {
             con = DriverManager.getConnection(database_url, "root", "sesame80");
             Statement s = con.createStatement();
             s.executeUpdate(query);
+
+
             System.out.println(msg);
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
