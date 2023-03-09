@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -31,6 +32,7 @@ public class Menu {
                     case 2-> carRental.familyCar();
                     case 3-> carRental.sportsCar();
                     case 4-> costumersReg.createRenter();
+                    case 5-> costumersReg.rentalContract();
                     case 9 -> userInput =0;
                     default -> System.out.println("You typed something the system could not understand!");
                 }
@@ -39,6 +41,8 @@ public class Menu {
             while (userInput !=0);
         } catch (InputMismatchException e) {
             System.out.println("ERROR 404");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
