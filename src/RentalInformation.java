@@ -25,7 +25,7 @@ public class RentalInformation extends DatabaseConnection {
         String query = "UPDATE rental_contract\n" +
                 "SET rental_end_date =" + "'" + userInput + "'" + "\n" +
                 "WHERE contract_id = " + userInput;
-        executeDML(query, "The rental is now prolong to" + userInput);
+        //executeDML(query, "The rental is now prolong to" + userInput);
     }
 
     public void EndRental () {

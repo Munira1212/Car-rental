@@ -13,7 +13,7 @@ public class DatabaseConnection {
             Statement s = con.createStatement(); //indholder vores sql query
             String sql = statement;
 
-            ResultSet rs = s.executeQuery(sql); //connecting object
+             ResultSet rs = s.executeQuery(sql);
             if (rs != null){
                 while (rs.next()) { //Skiller resultatset ad i dataen
                     for (int i = 0; i <column.length ; i++) {
@@ -22,15 +22,13 @@ public class DatabaseConnection {
                     }
                 }
             }
-            s.close();
-            con.close();
+
         }catch (SQLException e) {
             System.out.println("SQL Exception:" + e.getMessage());
             System.exit(1);
         }
-    }
-
-    public ResultSet executeDML(String statement, String msg){
+}
+    public void executeDML(String statement, String msg){
         String query = statement;
         try  {
             con = DriverManager.getConnection(database_url, "root", "sesame80");
@@ -44,5 +42,6 @@ public class DatabaseConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 }

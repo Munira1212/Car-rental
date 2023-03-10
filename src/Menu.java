@@ -1,49 +1,68 @@
-import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    private String menuHeader;
-    private String leadText;
-    private String menuItems;
-    private int userInput;
 
-    //Scanner
     Scanner sc = new Scanner(System.in);
-    public Menu(String menuHeader, String leadText, String menuItems){
-        this.menuHeader = menuHeader;
-        this.leadText = leadText;
-        this.menuItems = menuItems;
-    }
-    public void printMenu() {
-        System.out.println(menuHeader);
-        System.out.println(leadText);
-        System.out.println(menuItems);
+    private int input;
+    private boolean keeplaying = true;
+
+    SubMenuAvailabelCars subMenuAvailabelCars = new SubMenuAvailabelCars();
+    SubMenuRental subMenuRental = new SubMenuRental();
+    SubMenuOrderOverview subMenuOrderOverview = new SubMenuOrderOverview();
+
+
+    public void menuheader () {
+        System.out.printf("  ———————————————————————————————————————————————————————————————————————————————————————————————————————————————%n");
+        System.out.println("   K A I L U A    C A R      R E N T A L   " );
+        System.out.println("  ———————————————————————————————————————————————————————————————————————————————————————————————————————————————");
+
+        System.out.println();
+        System.out.printf("  %-25s   %-30s    %5s %n","R E N T A L                          ","       A V A I L A B E L   C A R S ", "        O R D E R  O V E R V I E W       ");
+
+        System.out.printf("  %-38s  %-37s %-50s ","Sign Up","       Luxury car  ",  "         Cancel rental  ");
+        System.out.println();
+        System.out.printf("   %-38s  %-37s %-50s ","\n  Add to basket         ","          Sports cars ","            Prolog rental");
+        System.out.println();
+        System.out.printf("   %-25s  %-37s","\n  Finalize order & sign contract", "               Family cars ");
+        System.out.println();
+        System.out.println("\n - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println( "  I N F O R M A T I O N ");
+        System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+        System.out.println("\n  Choose 1 (Rental)");
+        System.out.println("  Choose 2 (Availble cars )");
+        System.out.println("  Choose 3 (Order overview )");
+        System.out.print("\n  Enter:");
     }
 
-    Cars carRental = new Cars();
-    public void readchoice(){
+    public void readerchoiceoce(){
         try{
-            do  {
-                printMenu();
-                userInput = sc.nextInt();
-                switch (userInput) {
-                    case 1 -> carRental.luxuryCar();
-                    case 2-> carRental.familyCar();
-                    case 3-> carRental.sportsCar();
-                    case 4-> costumersReg.createRenter();
-                    case 5-> costumersReg.rentalContract();
-                    case 9 -> userInput =0;
-                    default -> System.out.println("You typed something the system could not understand!");
+            while (keeplaying) {
+                menuheader();
+                input = sc.nextInt();
+                switch (input) {
+                    case 1:
+                        subMenuRental.rentalReaderChoice();
+                        break;
+
+                    case 2:
+                        subMenuAvailabelCars.availbeVCarsReaderchoice();
+                        break;
+
+                    case 3:
+                        subMenuOrderOverview.OrderReaderChoice();
+                        break;
+
+                    default:
+                        System.out.println("You typed something the system could not understand!");
                 }
-                costumersReg.carRenter();
             }
-            while (userInput !=0);
+
         } catch (InputMismatchException e) {
-            System.out.println("ERROR 404");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Waring you wrote something our system dose not contain ");
         }
     }
-
 }
+
+
+
