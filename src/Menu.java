@@ -7,7 +7,7 @@ public class Menu {
     private int input;
     private boolean keeplaying = true;
 
-    SubMenuAvailabelCars subMenuAvailabelCars = new SubMenuAvailabelCars();
+    SubMenuAvailableCars subMenuAvailabelCars = new SubMenuAvailableCars();
     SubMenuRental subMenuRental = new SubMenuRental();
     SubMenuOrderOverview subMenuOrderOverview = new SubMenuOrderOverview();
 
@@ -46,7 +46,7 @@ public class Menu {
                         break;
 
                     case 2:
-                        subMenuAvailabelCars.availbeVCarsReaderchoice();
+                        subMenuAvailabelCars.carsReaderChoice();
                         break;
 
                     case 3:

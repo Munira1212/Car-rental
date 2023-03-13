@@ -25,8 +25,6 @@ public class Cars extends DatabaseConnection {
                         new String[]{"car_id", "car_brand", "car_model", "car_plate", "car_first_registration", "car_odometer"});
             }
         }
-     choseCar();
-
     }
 
     public void luxuryCar() throws SQLException {
@@ -42,85 +40,45 @@ public class Cars extends DatabaseConnection {
         carSelection("sport_car_id");
     }
 
+    public void carType() throws SQLException {
+        System.out.println("what car type do you want?");
+        int answar = sc.nextInt();
+        switch (answar) {
+            case 1 -> luxuryCar();
+            case 2 -> familyCar();
+            case 3 -> sportsCar();
+        }
 
+    }
+        public void choseCar() throws SQLException {
+            System.out.println("Write the ID of the car you wish to rent?");
+            int car_id = in.nextInt();
+            in.nextLine(); // consume the newline character
 
-    public void choseCar() throws SQLException {
-        System.out.println("Write the ID of the car you wish to rent?");
-        int car_id = in.nextInt();
-        in.nextLine(); // consume the newline character
+            System.out.println("What is your renters_ID:");
+            String renters_id = in.nextLine();
 
-        System.out.println("What is your renters_ID:");
-        String renters_id = in.nextLine();
+            Statement s = con.createStatement();
+            // Check om car_id eller renters_id allerede exister
+            String query = "SELECT * FROM rental_contract WHERE car_id = " + car_id + " OR renters_id = '" + renters_id + "'";
+            ResultSet rs = s.executeQuery(query);
 
-        Statement s = con.createStatement();
-        // Check om car_id eller renters_id allerede exister
-        String query = "SELECT * FROM rental_contract WHERE car_id = " + car_id + " OR renters_id = '" + renters_id + "'";
-        ResultSet rs = s.executeQuery(query);
-
-        if (rs.next()) {
-            if (rs.getInt("car_id") == car_id) {
-                System.out.println("The car you wish for is currently reserved by someone else. Would you like to proceed anyways and hurry to sign the contract to secure the car(Y/N)? )");
+            if (rs.next()) {
+                if (rs.getInt("car_id") == car_id) {
+                    System.out.println("The car you wish for is currently reserved by someone else. Would you like to proceed anyways and hurry to sign the contract to secure the car(Y/N)? )");
+                } else {
+                    System.out.println("The renters_id you have entered already exists. Do you wish to enter another one? (Y/N)");
+                }
+                String answer = in.nextLine();
+                if (!answer.equalsIgnoreCase("Y")) {
+                    return;
+                }
             } else {
-                System.out.println("The renters_id you have entered already exists. Do you wish to enter another one? (Y/N)");
+                // hvis både car_id og renters_id ikke exist, insert into database
+                query = "INSERT INTO rental_contract (car_id, renters_id) VALUES (" + car_id + ", '" + renters_id + "')";
+                executeDML(query, "Rental contract created with contract ID: ");
+                System.out.println(query);
             }
-            String answer = in.nextLine();
-            if (!answer.equalsIgnoreCase("Y")) {
-                return;
-            }
-        } else {
-            // hvis både car_id og renters_id ikke exist, insert into database
-            query = "INSERT INTO rental_contract (car_id, renters_id) VALUES (" + car_id +", '" + renters_id + "')";
-            executeDML(query, "Rental contract created with contract ID: " );
-            System.out.println(query);
         }
-    }
-
-    public void chooseCare()  throws SQLException {
-        System.out.println("Write the ID of the car you wish to rent?");
-        int car_id = in.nextInt();
-        in.nextLine(); // ny linje
-
-        System.out.println("What is your renters_ID:");
-        String renters_id = in.nextLine();
-        Statement s = con.createStatement(); 
-
-        //Check om car_id eller renters_id allerede exists
-        String query = "SELECT * FROM rental_contract WHERE car_id = " + car_id + " OR renters_id = '" + renters_id + "'";
-        ResultSet rs = s.executeQuery(query);
-
-        if (rs.next()) {
-            System.out.println("The renters_id you have entered already exists. Do you wish to enter another on ? (Y/N)");
-            String answer = in.nextLine();
-            if (!answer.equalsIgnoreCase("Y")) {
-                return; // Exit the method
-            }
-
-            query = "INSERT INTO rental_contract (car_id, renters_id) VALUES (" + car_id +", '" + renters_id + "')";
-            executeDML(query, "Rental contract created with contract ID: " );
-            System.out.println(query);
-        }
-    }
 }
-/*
 
-    public void costumersPick() throws SQLException {
-        System.out.println("Write the ID of the car you wish to rent?");
-        int car_id = sc.nextInt();
-
-        String query = "INSERT INTO rental_contract(car_id, renters_id, rental_start_date) VALUES (" +
-                car_id + ", LAST_INSERT_ID(), CURRENT_DATE)";
-        executeDML(query, "You are registered");
-
-        Statement statement = con.createStatement();
-        statement.executeUpdate(query);
-
-        ResultSet rs = statement.executeQuery("SELECT LAST_INSERT_ID() AS renters_id");
-        rs.next();
-        int renters_id = rs.getInt("renters_id");
-
-        System.out.println("Rental contract created with contract ID: " + renters_id);
-    }
-}
-/*
-
-     */
